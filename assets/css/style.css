@@ -21,6 +21,11 @@ header {
     padding: 30px;
 }
 
+header a {
+    text-decoration: none;
+    color: var(--secondary-color);
+}
+
 main {
     width: 60%;
     display: flex;

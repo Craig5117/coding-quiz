@@ -64,7 +64,8 @@ main #quiz-text {
 main #intro-text{
     text-align: center;
 }
-/* 
-main .quiz-text, .intro-text, {
-    
-} */
+
+main #results-area h2 {
+    color: lightslategray;
+    font-style: italic;
+}

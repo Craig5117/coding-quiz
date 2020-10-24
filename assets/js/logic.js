@@ -24,13 +24,13 @@ var timeCount = function(){
 // initialize quiz function
 var quiz = function(){
     timeCount();
-    var pickles = "pickles"
-    console.log(pickles)
-}
+    
+    quizArea.style.justifyContent = "flex-start";
+    quizArea.style.alignItems = "flex-start";
     //start timer
     //start questions loop
     //start buttons
-
+}
 var startQuiz = function(){
     console.log("Hey, you clicked me!");
     intro.remove();

@@ -1,37 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <meta charset="UTF-8" />
+    <meta 
+        name="viewport" 
+        content="width=device-width, initial-scale=1, minimum-scale=1"
+         />
     <title>Coding Quiz</title>
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 <body>
     <header>
     <div>
         <a href="./highscores.html" id="score-link">View high scores</a>
     </div>
+        <p>Score: <span id="score">0</span></p>
     <div>
         <p>Timer: <span id="timer">0</span></p>
     </div>
     </header>
     <main>
-        <div class= "flex-item" id="quiz-text">
+        <div class="flex-item" id="quiz-text">
             <h1 id="question">Coding Quiz Challenge</h1>
         </div>
-        <div class= "flex-item" id="intro-text">
+        <div class="flex-item" id="intro-text">
             <p>
-                Try to answer the following code-related questions within the time limit.<br />
+                Try to answer the following code-related questions within the time
+                limit.<br />
                 Keep in mind that incorrect answers will penalize your score/time<br />
                 by ten seconds.
             </p>
         </div>
-        <div class= "flex-item buttons-wrapper">
+        <div class="flex-item buttons-wrapper">
             <div class="button-container">
-                <button  class="btn" id="start-quiz">Start Quiz</button>
+                <button class="btn" id="start-quiz">Start Quiz</button>
             </div>
         </div>
-        <div class="flex-item" id=results-area>
+        <div class="flex-item" id="results-area">
             <h2 id="result"></h2>
         </div>
     </main>

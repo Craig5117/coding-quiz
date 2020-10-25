@@ -70,6 +70,10 @@ main #intro-text{
     text-align: center;
 }
 
+main #results-area {
+    width: 100%;
+    padding-top: 10px;
+}
 main #results-area h2 {
     color: lightslategray;
     font-style: italic;

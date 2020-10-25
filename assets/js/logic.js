@@ -4,6 +4,8 @@ var intro = document.querySelector("#intro-text");
 var quizArea = document.querySelector("main");
 var startBtn = document.querySelector("#start-quiz");
 var buttonContainer = document.querySelector(".button-container");
+var result = document.querySelector("#result")
+var evaluate = "";
 
 var questions = [
     { q: 'The sky is blue.', a: 'fork'}
@@ -35,6 +37,23 @@ var timeCount = function(){
     }, 1000); 
 }
 
+var resultDisplay = function() {
+    var timeLeft = 1;
+    result.textContent = evaluate
+    result.style.borderTop = "3px solid lightslategray";
+    var timeInterval = setInterval(function() {
+        
+        if (timeLeft > 0){
+            
+            timeLeft--
+        }
+        else if (timeLeft === 0) {
+            clearInterval(timeInterval);
+            result.textContent = "";
+            result.style.borderTop = "none";
+        }
+    }, 1000);
+}
 
 
 // initialize quiz function
@@ -72,13 +91,16 @@ var quiz = function(){
     // compares user input to answer
     var submitAndCompare = function(){
         var answerSubmission = event.target.textContent
-        console.log(answerSubmission);
+        
         if (answerSubmission === answer){
-            console.log("Correct!")
+            evaluate = "Correct!";
         }
         else {
-            console.log("Wrong!")
+            evaluate = "Wrong!";
         }
+        resultDisplay();
+        
+
     }
 
     button1.addEventListener("click", submitAndCompare); 

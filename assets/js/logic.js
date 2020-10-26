@@ -79,12 +79,24 @@ var endQuiz = function(){
     button4.remove();
     console.log(timer.textContent);
     console.log(score);
-    var finalScore = score + parseInt(timer.textContent);
+    var finalScore = score + timeLeft;
     console.log(finalScore);
-    
+    if (finalScore > 0) {
     question.textContent = "All Done!";
     scoreFormText.innerHTML = "Your final score: " + finalScore + "<br />Enter initials: ";
     introTextArea.appendChild(initialsEntry);
+    }
+    else if (finalScore === 0) {
+        var reloadMain = function() { 
+            return window.location.assign((href = "./index.html"))
+        }
+        question.textContent = "Too bad.";
+        var goBack = document.createElement("button")
+        goBack.className = "btn";
+        goBack.textContent = "Go Back"
+        introTextArea.appendChild(goBack)
+        goBack.addEventListener("click", reloadMain);
+    }
    
     // submit initials and store the scores
     var scoreSubmission = function (){
@@ -167,6 +179,9 @@ var timeCount = function(){
     else {
         evaluate = "Wrong!";
         timeLeft = timeLeft - 10;
+        if (timeLeft < 0) {
+            timeLeft = 0;
+        }
     }
     resultDisplay();
     ++i;

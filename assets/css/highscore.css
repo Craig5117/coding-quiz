@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    background-color: var(--secondary-color);
+}
+
+header h1 {
+    font-size:  4rem;
+}
+
+table {
+    background-color: rgba(189, 96, 231, 50%);
+    text-align: center;
+    width: 30vw;
+    border: solid 3px var(--primary-color);
+    border-collapse: collapse;
+    margin-bottom: 4vh;
+}
+
+table th, table td {
+    padding: 10px;
+    border: solid 3px var(--primary-color);
+}

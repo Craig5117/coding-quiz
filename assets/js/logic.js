@@ -13,43 +13,58 @@ var scoreText = document.querySelector("#score");
 var finalScoreDisplay = document.querySelector("#final-score");
 var evaluate = "";
 var answer = "";
-var yourInitials = "";
 
+var timeLeft = 74;
 var score = 0;
-var questionCounter = 0;
 
-var correctBonus = 20;
+var storedHighScoresArr = [];
 
 var button1 = document.createElement("button");
     button1.className = "btn multi";
     button1.id ="button1";    
 var button2 = document.createElement("button");
     button2.className = "btn multi";
-    button1.id ="button2";    
+    button2.id ="button2";    
 var button3 = document.createElement("button");
     button3.className = "btn multi";
-    button1.id ="button3" ;  
+    button3.id ="button3" ;  
 var button4 = document.createElement("button");
     button4.className = "btn multi";
-    button1.id ="button4";
-var initialsEntry = document.createElement("p")
+    button4.id ="button4";
+var initialsEntry = document.createElement("form")
+    initialsEntry.id = "score-form";
+var scoreFormText = document.createElement("p")
+    initialsEntry.appendChild(scoreFormText); 
+var initialsInput = document.createElement("input")
+    initialsInput.type = "text";
+    initialsInput.className = "text-input";
+    initialsInput.id = "initials";
+    initialsInput.placeholder = "Your Initials";
+    initialsEntry.appendChild(initialsInput);
+var initSubmit = document.createElement("button")
+    initSubmit.className = "btn";
+    initSubmit.id = "init-submit";
+    initSubmit.type = "submit";
+    initSubmit.textContent = "Submit";
+    initialsEntry.appendChild(initSubmit);
+
     
 var questions = [
-    { q: 'The sky is blue.', a: 'fork'},
-    { q: 'There are 365 days in a year.', a: 'house' },
-    { q: 'There are 42 ounces in a pound.', a: 'beer' },
-    { q: 'The Declaration of Independence was created in 1745.', a: 'snake' },
-    { q: 'Bananas are vegetables.', a: 'spoon' }
+    { q: 'What is the method that can be used to run a function repeatedly for a set length of time?', a: 'setInterval()'},
+    { q: 'What is the correct syntax to write a for loop?', a: 'for (var i = 0; i < variable.length; i++) {}' },
+    { q: 'What does DOM stand for?', a: 'Document Object Model' },
+    { q: 'An array can store what kind of information?', a: 'All of the above' },
+    { q: 'Which of the following can be used for debugging JavaScript?', a: 'console.log' }
   ];
 var answers = [
-    {m1:'fork', m2:'spoon', m3:'pickle', m4:'hexagon'},
-    {m1:'mouse', m2:'house', m3:'louse', m4:'laos'},
-    {m1:'beer', m2:'fear', m3:'year', m4:'tear'},
-    {m1:'monkey', m2:'cat', m3:'horse', m4:'snake'},
-    {m1:'fork', m2:'spoon', m3:'pickle', m4:'hexagon'}
+    {m1:'setInterval()', m2:'makeTimer()', m3:'setTimeout()', m4:'timeDelay()'},
+    {m1:'for (10 times) {}', m2:'for (var i = 0; i < variable.length; i++) {}', m3: 'for (var i = 0, i < variable.length, i++)', m4:'for (i++; i < variable.length; i = 0)'},
+    {m1:'Document Object Model', m2:'Domain Obligatory Management', m3:'Detailed Object Matrix', m4:'Data Obtainment Method'},
+    {m1:'Other arrays', m2:'Booleans', m3:'Numbers and strings', m4:'All of the above'},
+    {m1:'for loops', m2:'algorithms', m3:'console.log', m4:'booleans'}
 ];
 
-
+console.log(localStorage.getItem("highScores"));
 var incrementScore = function() {
 	
 	scoreText.textContent = score;
@@ -66,18 +81,34 @@ var endQuiz = function(){
     console.log(finalScore);
     
     question.textContent = "All Done!";
-    initialsEntry.innerHTML = "Your final score: " + finalScore + "<br />Enter initials: <input type='text'  class='text-input' id='initials' placeholder='Your Initials' /> <button class='btn' id='init-submit' type='submit'>Submit</button>"; 
+    scoreFormText.innerHTML = "Your final score: " + finalScore + "<br />Enter initials: ";
     introTextArea.appendChild(initialsEntry);
-    var initials = document.querySelector("#initials")
+   
     
     var scoreSubmission = function (){
+        var initials = document.querySelector("input[id='initials']").value
+        event.preventDefault();
+        console.log(initials)
         // localStorage.setItem()
-        localStorage.setItem("recordedScore", initials.value + ": " + finalScore);
-        question.textContent = "High scores";
-        introTextArea.removeChild(initialsEntry);
+        // localStorage.setItem("recordedScore", initials.value + ": " + finalScore);
+        if (localStorage.getItem("highScores")) {
+            oldScoreArr = localStorage.getItem("highScores");
+            newScoreArr = [JSON.parse(oldScoreArr), {name: initials, score: finalScore}]
+            console.log("newScoreArr: ", newScoreArr);
+            localStorage.setItem("highScores", JSON.stringify(newScoreArr));
+        }
+        else {
+            localStorage.setItem("highScores", JSON.stringify([{name: initials, score: finalScore}]))
+        }
+        initials.value = "";
+        return window.location.assign((href = "./highscores.html"))
+        
+
+        // question.textContent = "High scores";
+        // introTextArea.removeChild(initialsEntry);
     }
-    var initSubmit = document.querySelector("#init-submit");
-    initSubmit.addEventListener("click", scoreSubmission);
+    
+    initialsEntry.addEventListener("submit", scoreSubmission);
     
     
 
@@ -85,7 +116,7 @@ var endQuiz = function(){
 
 var timeCount = function(){
     // there is about a 1 sec delay for the set interval to start. Changing the timer to 75 and timeLeft to 74 hides the delay
-    var timeLeft = 74;
+    
     timer.textContent = 75;
     var timeInterval = setInterval(function(){
         timer.textContent = timeLeft;
@@ -96,9 +127,10 @@ var timeCount = function(){
         else if (timeLeft > 0) {
             timeLeft--;
         }
-        else if (evaluate === "Wrong!"){
-            timeLeft = timeLeft -10;
-        }
+        // else if (evaluate === "Wrong!"){
+        //     timeLeft = timeLeft -= 10;
+        // //     timer.textContent = timeLeft;
+        // }
         else if (timeLeft === 0) { 
             clearInterval(timeInterval);
             console.log ("You are out of time :(")
@@ -108,19 +140,7 @@ var timeCount = function(){
 
     }, 1000);    
 }
-// var getNewQuestion = function() {
-//     if (availableQuestions.length === 0 || questionCounter >= maxQuestions) {
-//         localStorage.setItem(`most recent score: ${score}`);
-//         // go to end page
-//         return window.location.assign((href = 'end.html'));
-//     }
-//     questionCounter++;
-//     if (question !== null) {
-//         question.innerText = `Question: ${questionCounter}` / `${maxQuestions}}`;
-//     }
-//     var questionIndex = Math.floor(Math.random() * availableQuestions.length);
-// 	currentQuestion = availableQuestions[questionIndex];
-// };
+
  // compares user input to answer
  var quizLoop = function(){
     if (i === 5) {
@@ -153,6 +173,7 @@ var timeCount = function(){
     }
     else {
         evaluate = "Wrong!";
+        timeLeft = timeLeft - 10;
     }
     resultDisplay();
     ++i;
@@ -174,12 +195,7 @@ var resultDisplay = function() {
         }
     }, 1000);
 }
-// before major restructuring
-    // these are the answers for the buttons
-    // button1.textContent = answers[i].m1;
-    // button2.textContent = answers[i].m2;
-    // button3.textContent = answers[i].m3;
-    // button4.textContent = answers[i].m4;
+
 // initialize quiz function
 var quiz = function(){
     //start timer

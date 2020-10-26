@@ -70,6 +70,10 @@ main #intro-text{
     text-align: center;
 }
 
+main .text-input{
+    font-size: larger;
+    margin-right: 5vw;
+}
 
 main #results-area {
     width: 100%;

@@ -5,8 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <title>Highscores</title>
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/highscore.css">
 </head>
 <body>
-    <script ></script>
+    <header>
+        <div>
+            <h1>
+                High Scores
+            </h1>
+        </div>
+    </header>
+    <main>
+        <table id="score-table">
+            <tr>
+                <th>Initials</th><th>Score</th>
+            </tr>
+        </table>
+        <div>
+            <button class="btn" id="go-back">Go Back</button>
+            <button class="btn" id="clear-scores">Clear High Scores</button>
+        </div>
+    </main>
+    <script src="assets/js/highscore.js"></script>
 </body>
 </html>

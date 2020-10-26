@@ -94,11 +94,8 @@ var endQuiz = function(){
         finalScoreObj = {name: initials, score: finalScore};
         if (localStorage.getItem("highScores")) { 
             oldScores = localStorage.getItem("highScores");
-            console.log(oldScores)
             oldScores = JSON.parse(oldScores);
-            
             oldScores.push(finalScoreObj)
-            console.log(oldScores);
             localStorage.setItem("highScores", JSON.stringify(oldScores));
         }
         else {

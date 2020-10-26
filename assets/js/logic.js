@@ -1,4 +1,4 @@
-var yourTime = 0;
+
 var i = 0;
 var timer = document.querySelector("#timer");
 var question = document.querySelector("#question");
@@ -17,8 +17,8 @@ var answer = "";
 var timeLeft = 74;
 var score = 0;
 
-var storedHighScoresArr = [];
 
+// initializes elements to be appended
 var button1 = document.createElement("button");
     button1.className = "btn multi";
     button1.id ="button1";    
@@ -65,11 +65,14 @@ var answers = [
 ];
 
 console.log(localStorage.getItem("highScores"));
+
+// increase score for correct answers
 var incrementScore = function() {
 	
 	scoreText.textContent = score;
-	// localStorage.setItem(`score: ${score}`);
 };
+
+// end quiz and tally final score
 var endQuiz = function(){
     button1.remove();
     button2.remove();
@@ -84,13 +87,12 @@ var endQuiz = function(){
     scoreFormText.innerHTML = "Your final score: " + finalScore + "<br />Enter initials: ";
     introTextArea.appendChild(initialsEntry);
    
-    
+    // submit initials and store the scores
     var scoreSubmission = function (){
         var initials = document.querySelector("input[id='initials']").value
         event.preventDefault();
         console.log(initials)
-        // localStorage.setItem()
-        // localStorage.setItem("recordedScore", initials.value + ": " + finalScore);
+        
         if (localStorage.getItem("highScores")) {
             oldScoreArr = localStorage.getItem("highScores");
             newScoreArr = [JSON.parse(oldScoreArr), {name: initials, score: finalScore}]
@@ -102,10 +104,6 @@ var endQuiz = function(){
         }
         initials.value = "";
         return window.location.assign((href = "./highscores.html"))
-        
-
-        // question.textContent = "High scores";
-        // introTextArea.removeChild(initialsEntry);
     }
     
     initialsEntry.addEventListener("submit", scoreSubmission);
@@ -127,10 +125,6 @@ var timeCount = function(){
         else if (timeLeft > 0) {
             timeLeft--;
         }
-        // else if (evaluate === "Wrong!"){
-        //     timeLeft = timeLeft -= 10;
-        // //     timer.textContent = timeLeft;
-        // }
         else if (timeLeft === 0) { 
             clearInterval(timeInterval);
             console.log ("You are out of time :(")
@@ -162,7 +156,8 @@ var timeCount = function(){
     button3.textContent = answers[i].m3;
     button4.textContent = answers[i].m4;           
 } 
-
+ 
+// compare user answer with correct answer and score
  var submitAndCompare = function(){
     var answerSubmission = event.target.textContent
     if (answerSubmission === answer){
@@ -210,15 +205,16 @@ var quiz = function(){
     //start questions loop
     quizLoop();
 }
+
+// starts quiz cycle
 var startQuiz = function(){
     intro.textContent = "";
     startBtn.remove();
     question.textContent = "";
     quiz();
-    // set attributes to re-align quiz-text and buttons
-    // call quiz(); function
+    
 };
-// Need to set answer area as below buttons <h2> italic border top
+
 startBtn.addEventListener("click", startQuiz);
 button1.addEventListener("click", submitAndCompare); 
 button2.addEventListener("click", submitAndCompare); 

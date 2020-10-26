@@ -3,6 +3,7 @@ var clearScores = document.querySelector("#clear-scores")
 
 var loadScores = function(){
     var highScores = JSON.parse(localStorage.getItem("highScores"));
+    highScores.
     console.log (highScores);
     var scoreTable = document.querySelector("#score-table")
     if (highScores){

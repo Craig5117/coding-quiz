@@ -1,4 +1,3 @@
-
 var i = 0;
 var timer = document.querySelector("#timer");
 var question = document.querySelector("#question");

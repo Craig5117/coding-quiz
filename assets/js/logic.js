@@ -91,15 +91,15 @@ var endQuiz = function(){
         var initials = document.querySelector("input[id='initials']").value
         event.preventDefault();
         console.log(initials)
-        
+        finalScoreObj = {name: initials, score: finalScore};
         if (localStorage.getItem("highScores")) {
             oldScoreArr = localStorage.getItem("highScores");
-            newScoreArr = [JSON.parse(oldScoreArr), {name: initials, score: finalScore}]
+            newScoreArr = [...JSON.parse(oldScoreArr), finalScoreObj]
             console.log("newScoreArr: ", newScoreArr);
             localStorage.setItem("highScores", JSON.stringify(newScoreArr));
         }
         else {
-            localStorage.setItem("highScores", JSON.stringify([{name: initials, score: finalScore}]))
+            localStorage.setItem("highScores", JSON.stringify([finalScoreObj]))
         }
         initials.value = "";
         return window.location.assign((href = "./highscores.html"))

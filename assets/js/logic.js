@@ -92,16 +92,20 @@ var endQuiz = function(){
         event.preventDefault();
         console.log(initials)
         finalScoreObj = {name: initials, score: finalScore};
-        if (localStorage.getItem("highScores")) {
-            oldScoreArr = localStorage.getItem("highScores");
-            newScoreArr = [...JSON.parse(oldScoreArr), finalScoreObj]
-            console.log("newScoreArr: ", newScoreArr);
-            localStorage.setItem("highScores", JSON.stringify(newScoreArr));
+        if (localStorage.getItem("highScores")) { 
+            oldScores = localStorage.getItem("highScores");
+            console.log(oldScores)
+            oldScores = JSON.parse(oldScores);
+            
+            oldScores.push(finalScoreObj)
+            console.log(oldScores);
+            localStorage.setItem("highScores", JSON.stringify(oldScores));
         }
         else {
-            localStorage.setItem("highScores", JSON.stringify([finalScoreObj]))
-        }
-        initials.value = "";
+            scores = [];
+            scores.push(finalScoreObj);
+            localStorage.setItem("highScores", JSON.stringify(scores))
+            }
         return window.location.assign((href = "./highscores.html"))
     }
     
@@ -129,8 +133,6 @@ var timeCount = function(){
             console.log ("You are out of time :(")
             endQuiz();
         }
-        
-
     }, 1000);    
 }
 

@@ -2,13 +2,13 @@ var goBack = document.querySelector("#go-back")
 var clearScores = document.querySelector("#clear-scores") 
 
 var loadScores = function(){
-    var highScores = JSON.parse(localStorage.getItem("highScores"));
-
-    console.log (highScores);
+    var highScores = localStorage.getItem("highScores");
+    var highScores = JSON.parse(highScores);
+    
     var scoreTable = document.querySelector("#score-table")
     if (highScores){
         for (var i = 0; i < highScores.length; i++){
-            
+            console.log ("This is " + JSON.stringify(highScores[i]));
             var trEl = document.createElement("tr")
             var nameTdEl = document.createElement("td")
             var scoreTdEl = document.createElement("td")

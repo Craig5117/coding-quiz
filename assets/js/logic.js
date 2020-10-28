@@ -107,7 +107,11 @@ var endQuiz = function(){
         if (localStorage.getItem("highScores")) { 
             oldScores = localStorage.getItem("highScores");
             oldScores = JSON.parse(oldScores);
-            oldScores.push(finalScoreObj)
+            oldScores.push(finalScoreObj);
+            oldScores = oldScores.sort((a, b) => b.score - a.score);
+                if (oldScores.length === 6) {
+                    oldScores.pop();
+                }
             localStorage.setItem("highScores", JSON.stringify(oldScores));
         }
         else {
